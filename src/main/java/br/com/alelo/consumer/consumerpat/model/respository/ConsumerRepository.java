@@ -1,6 +1,6 @@
-package br.com.alelo.consumer.consumerpat.respository;
+package br.com.alelo.consumer.consumerpat.model.respository;
 
-import br.com.alelo.consumer.consumerpat.entity.Consumer;
+import br.com.alelo.consumer.consumerpat.model.entity.Consumer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

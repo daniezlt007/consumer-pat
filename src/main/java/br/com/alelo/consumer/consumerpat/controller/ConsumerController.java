@@ -1,14 +1,14 @@
 package br.com.alelo.consumer.consumerpat.controller;
 
-import br.com.alelo.consumer.consumerpat.entity.Consumer;
-import br.com.alelo.consumer.consumerpat.entity.Extract;
-import br.com.alelo.consumer.consumerpat.respository.ConsumerRepository;
-import br.com.alelo.consumer.consumerpat.respository.ExtractRepository;
+import br.com.alelo.consumer.consumerpat.model.entity.Consumer;
+import br.com.alelo.consumer.consumerpat.service.ConsumerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.Date;
+import java.net.URI;
 
 
 @RestController
@@ -16,28 +16,32 @@ import java.util.Date;
 public class ConsumerController {
 
     @Autowired
-    ConsumerRepository repository;
-
-    @Autowired
-    ExtractRepository extractRepository;
+    private ConsumerServiceImpl consumerService;
 
     /* Deve listar todos os clientes (cerca de 500) */
     @ResponseBody
     @GetMapping(value = "/consumerList")
     public ResponseEntity<?> listAllConsumers() {
-        return !repository.getAllConsumersList().isEmpty() ? ResponseEntity.ok(repository.getAllConsumersList()) : ResponseEntity.noContent().build();
+        return !this.consumerService.listAllConsumers().isEmpty() ? ResponseEntity.ok(this.consumerService.listAllConsumers()) : ResponseEntity.noContent().build();
     }
 
     /* Cadastrar novos clientes */
+    @ResponseStatus(code = HttpStatus.CREATED)
     @PostMapping(value = "/createConsumer")
     public void createConsumer(@RequestBody Consumer consumer) {
-        repository.save(consumer);
+        Consumer consumerNew = this.consumerService.createConsumer(consumer);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(consumerNew.getId())
+                .toUri();
+        ResponseEntity.created(location).build();
     }
 
     // Não deve ser possível alterar o saldo do cartão
-    @PostMapping(value = "/updateConsumer")
+    @PutMapping(value = "/updateConsumer")
     public void updateConsumer(@RequestBody Consumer consumer) {
-        repository.save(consumer);
+        this.consumerService.updateConsumer(consumer);
     }
 
     /*

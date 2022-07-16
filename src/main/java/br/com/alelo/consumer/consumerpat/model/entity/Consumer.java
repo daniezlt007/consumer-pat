@@ -1,7 +1,6 @@
-package br.com.alelo.consumer.consumerpat.entity;
+package br.com.alelo.consumer.consumerpat.model.entity;
 
 
-import jdk.jfr.DataAmount;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -29,12 +28,7 @@ public class Consumer {
     private int phoneNumber;
     private String email;
 
-    //Address
-    private String street;
-    private int number;
-    private String city;
-    private String country;
-    private int portalCode;
+
 
     //cards
     private int foodCardNumber;

@@ -1,14 +1,16 @@
 package br.com.alelo.consumer.consumerpat.service;
 
-import br.com.alelo.consumer.consumerpat.entity.Consumer;
-import br.com.alelo.consumer.consumerpat.entity.Extract;
-import br.com.alelo.consumer.consumerpat.respository.ConsumerRepository;
-import br.com.alelo.consumer.consumerpat.respository.ExtractRepository;
+import br.com.alelo.consumer.consumerpat.model.entity.Consumer;
+import br.com.alelo.consumer.consumerpat.model.entity.Extract;
+import br.com.alelo.consumer.consumerpat.model.respository.ConsumerRepository;
+import br.com.alelo.consumer.consumerpat.model.respository.ExtractRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class ConsumerServiceImpl implements ConsumerService{
 
     @Autowired
@@ -23,10 +25,11 @@ public class ConsumerServiceImpl implements ConsumerService{
     }
 
     @Override
-    public void createConsumer(Consumer consumer) {
+    public Consumer createConsumer(Consumer consumer) {
         if(consumer != null){
-            this.consumerRepository.save(consumer);
+            return this.consumerRepository.save(consumer);
         }
+        return null;
     }
 
     @Override
