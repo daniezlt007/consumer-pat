@@ -4,6 +4,7 @@ import br.com.alelo.consumer.consumerpat.model.entity.Consumer;
 import br.com.alelo.consumer.consumerpat.service.ConsumerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -12,7 +13,7 @@ import java.net.URI;
 
 
 @RestController
-@RequestMapping("/consumer")
+@RequestMapping(value = "/consumer", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ConsumerController {
 
     @Autowired
@@ -51,13 +52,13 @@ public class ConsumerController {
      */
     @GetMapping(value = "/setcardbalance")
     public void setBalance(int cardNumber, double value) {
-
+        this.consumerService.setBalance(cardNumber, value);
     }
 
     @ResponseBody
     @GetMapping(value = "/buy")
     public void buy(int establishmentType, String establishmentName, int cardNumber, String productDescription, double value) {
-
+        this.consumerService.buy(establishmentType, establishmentName, cardNumber, productDescription, value);
     }
 
 }
