@@ -4,10 +4,8 @@ package br.com.alelo.consumer.consumerpat.entity;
 import jdk.jfr.DataAmount;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -19,32 +17,44 @@ public class Consumer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @Column(name="name")
     private  String name;
+
+    @Column(name="document_number")
     int documentNumber;
-    private Date birthDate;
+
+    @Column(name="birth_date")
+    private LocalDate birthDate;
 
     //contacts
+    @Column(name = "mobile_phone_number")
     private int mobilePhoneNumber;
+
+    @Column(name = "residence_phone_number")
     private int residencePhoneNumber;
+
+    @Column(name = "phone_number")
     private int phoneNumber;
+
+    @Column(name = "email")
     private String email;
 
     //Address
+    @Column(name = "street")
     private String street;
+
+    @Column(name = "number")
     private int number;
+
+    @Column(name = "city")
     private String city;
+
+    @Column(name = "country")
     private String country;
+
+    @Column(name = "portal_code")
     private int portalCode;
-
-    //cards
-    private int foodCardNumber;
-    private double foodCardBalance;
-
-    private int fuelCardNumber;
-    private double fuelCardBalance;
-
-    private int drugstoreNumber;
-    private double drugstoreCardBalance;
 
     @Override
     public boolean equals(Object o) {
@@ -57,10 +67,6 @@ public class Consumer {
                 && phoneNumber == consumer.phoneNumber
                 && number == consumer.number
                 && portalCode == consumer.portalCode
-                && foodCardNumber == consumer.foodCardNumber
-                && Double.compare(consumer.foodCardBalance, foodCardBalance) == 0
-                && fuelCardNumber == consumer.fuelCardNumber && Double.compare(consumer.fuelCardBalance, fuelCardBalance) == 0
-                && drugstoreNumber == consumer.drugstoreNumber && Double.compare(consumer.drugstoreCardBalance, drugstoreCardBalance) == 0
                 && Objects.equals(id, consumer.id) && Objects.equals(name, consumer.name) && Objects.equals(birthDate, consumer.birthDate)
                 && Objects.equals(email, consumer.email) && Objects.equals(street, consumer.street) && Objects.equals(city, consumer.city)
                 && Objects.equals(country, consumer.country);
